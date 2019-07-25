@@ -18,7 +18,5 @@ docker-compose -f docker-compose.db.yml up -d
 npm start
 ```
 
-### Follow
-```
+### Run the frontend app following the below guide
 [Run the frontend app](https://github.com/fardinhakimi/express-vue-social-auth/blob/master/src/frontend/README.md)
-```

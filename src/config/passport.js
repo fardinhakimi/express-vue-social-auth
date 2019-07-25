@@ -48,7 +48,7 @@ module.exports = (passport) => {
 
                 if (user) {
 
-                    user = await User.findByIdAndUpdate(user.getId(), googleUser)
+                    user = await User.findByIdAndUpdate(user.getId(), { $set: googleUser})
 
                     return done(null, user);
                 }
@@ -88,11 +88,11 @@ module.exports = (passport) => {
                 }
 
                 if (user) {
-                    user = user.findByIdAndUpdate(user.gitId(), githubUser)
+                    user = await User.findByIdAndUpdate(user.getId(), {$set: githubUser} )
                     return done(null, user);
                 }
 
-                gitHubStrategy.email = profile._json.email,
+                githubUser.email = profile._json.email,
 
                     user = new User(githubUser)
 

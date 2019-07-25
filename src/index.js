@@ -15,19 +15,19 @@ app.use(cors())
 // Mongo db 
 require('./config/db')()
 // Passport
-require('./config/passport')(passport)
 app.use(passport.initialize())
+require('./config/passport')(passport)
 
 // Routes 
+
+
+app.use('/auth', require('./controllers/AuthController'))
 
 app.use('/', (req, res) => {
     res.status(httpStatus.OK).json({
         'Status': 'Alive'
     })
 })
-
-app.use('/auth/', require('./controllers/AuthController'))
-
 // Server 
 
 const PORT = process.env.PORT || 3000

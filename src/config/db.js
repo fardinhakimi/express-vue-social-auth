@@ -2,7 +2,7 @@ const connect = require('mongoose').connect
 
 const connectWithRetry = () => {
 
-    const dbUrl = `mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@0.0.0.0:27017/${MONGO_INITDB_DATABASE}?authSource=admin`
+    const dbUrl = `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@0.0.0.0:27017/${process.env.MONGO_INITDB_DATABASE}?authSource=admin`
 
     connect(dbUrl, { useNewUrlParser: true })
     .then(() => {

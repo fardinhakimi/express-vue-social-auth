@@ -6,22 +6,22 @@ const FRONTEND_LOGIN_URL = process.env.FRONTEND_LOGIN_URL
 
 // GOOGLE
 
-router.get('google', passport.authenticate('google', {
+router.get('/google', passport.authenticate('google', {
     session: false,
     scope: ['profile', 'email']
 }))
 
-router.get('google/callback', (req, res) => {
+router.get('/google/callback', (req, res) => {
     return providerLogin(req, res, 'google')
 });
 
 // GITHUB
 
-router.get('github', passport.authenticate('github', {
+router.get('/github', passport.authenticate('github', {
     session: false
 }))
 
-router.get('github/callback', (req, res) => {
+router.get('/github/callback', (req, res) => {
     return providerLogin(req, res, 'github')
 });
 

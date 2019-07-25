@@ -10,12 +10,10 @@ const userSchema = new Schema({
         required: true,
     },
     googleId: {
-        type: String,
-        unique: true
+        type: String
     },
     githubId: {
-        type: String,
-        unique: true
+        type: String
     },
     googleProfileJson: {
         type: JSON

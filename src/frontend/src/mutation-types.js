@@ -1,0 +1,2 @@
+// Registration and Authentication
+export const UPDATE_USER = 'UPDATE_USER'

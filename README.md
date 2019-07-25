@@ -1,2 +1,2 @@
 # express-vue-social-auth
-This repository demonstrates a simple scenario of Social logins ( google and github) using express and vuejs. 
+This is a full-stack simple app demonstrating how you can do social login with providers like google and github with express and vuejs using passport. 

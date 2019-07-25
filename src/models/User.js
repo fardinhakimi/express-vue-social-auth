@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require('mongoose')
 
 const userSchema = new Schema({
 
@@ -10,10 +10,12 @@ const userSchema = new Schema({
         required: true,
     },
     googleId: {
-        type: String
+        type: String,
+        unique: true
     },
     githubId: {
-        type: String
+        type: String,
+        unique: true
     },
     googleProfileJson: {
         type: JSON
@@ -22,8 +24,7 @@ const userSchema = new Schema({
         type: JSON
     },
     name: {
-        type: String,
-        minlength: 3
+        type: String
     }
 })
 

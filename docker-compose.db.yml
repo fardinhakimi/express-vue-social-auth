@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports: 
+      - 27017:27017
+    env_file:
+      - .env
+    networks:
+      - app_network
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    ports:
+      - 8081:8081
+    env_file:
+      - .env
+    depends_on: 
+      - mongo
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge

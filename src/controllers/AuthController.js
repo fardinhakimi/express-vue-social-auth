@@ -37,7 +37,7 @@ const providerLogin = (req, res, providerName) => {
             }
 
             const payload = {
-                id: user.getId(),
+                id: user._id,
                 expires: Date.now() + parseInt(process.env.JWT_EXPIRATION_MS),
             }
 

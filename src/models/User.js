@@ -26,8 +26,4 @@ const userSchema = new Schema({
     }
 })
 
-userSchema.methods.getId = function () {
-    return this._id
-}
-
 module.exports = model('User', userSchema)

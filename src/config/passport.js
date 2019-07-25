@@ -48,7 +48,7 @@ module.exports = (passport) => {
 
                 if (user) {
 
-                    user = await User.findByIdAndUpdate(user.getId(), { $set: googleUser })
+                    user = await user.updateOne({ $set: googleUser })
 
                     return done(null, user);
                 }
@@ -87,7 +87,7 @@ module.exports = (passport) => {
                 }
 
                 if (user) {
-                    user = await User.findByIdAndUpdate(user.getId(), { $set: githubUser })
+                    user = await user.updateOne({ $set: githubUser })
                     return done(null, user);
                 }
 
@@ -100,6 +100,7 @@ module.exports = (passport) => {
                 return done(null, user);
 
             } catch (error) {
+                console.log(error)
                 return done(error)
             }
         }

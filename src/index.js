@@ -12,6 +12,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cors())
 
+// Mongo db 
+require('./config/db')()
 // Passport
 require('./config/passport')(passport)
 app.use(passport.initialize())

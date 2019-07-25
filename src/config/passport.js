@@ -36,23 +36,26 @@ module.exports = (passport) => {
 
                 const email = profile.emails[0].value;
 
-                // check if user already exists
                 let user = await User.findOne({ email: email });
-
-                if (user) {
-                    return done(null, user);
-                }
 
                 const { familyName, givenName } = profile.name
 
-                user = new User(
-                    {
-                        email: email,
-                        name: `${givenName} ${familyName}`,
-                        googleId: profile.id,
-                        googleProfileJson: profile._json
-                    }
-                )
+                const googleUser = {
+                    name: `${givenName} ${familyName}`,
+                    googleId: profile.id,
+                    googleProfileJson: profile._json
+                }
+
+                if (user) {
+
+                    user = await User.findByIdAndUpdate(user.getId(), googleUser)
+
+                    return done(null, user);
+                }
+
+                googleUser.email = email
+
+                user = new User(googleUser)
 
                 user = await user.save();
 
@@ -78,18 +81,20 @@ module.exports = (passport) => {
 
                 let user = await User.findOne({ email: profile._json.email });
 
+                const githubUser = {
+                    name: profile._json.name,
+                    githubId: profile.id,
+                    githubProfileJson: profile._json
+                }
+
                 if (user) {
+                    user = user.findByIdAndUpdate(user.gitId(), githubUser)
                     return done(null, user);
                 }
 
-                user = new User(
-                    {
-                        email: profile._json.email,
-                        name: profile._json.name,
-                        githubId: profile.id,
-                        githubProfileJson: profile._json
-                    }
-                )
+                gitHubStrategy.email = profile._json.email,
+
+                    user = new User(githubUser)
 
                 user = await user.save();
 
@@ -111,5 +116,3 @@ module.exports = (passport) => {
         cb(null, obj);
     });
 }
-
-

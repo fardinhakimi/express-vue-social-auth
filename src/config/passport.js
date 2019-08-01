@@ -1,6 +1,7 @@
 const JWTStrategy = require('passport-jwt').Strategy
+const ExtractJwt = require('passport-jwt').ExtractJwt
 const googleStrategy = require('passport-google-oauth20').Strategy
-const gitHubStrategy = require('passport-github').Strategy;
+const gitHubStrategy = require('passport-github').Strategy
 const User = require('../models/User')
 const secretKey = process.env.SECRET_KEY
 
@@ -9,18 +10,22 @@ const SERVER_BASE_URL = process.env.SERVER_BASE_URL
 module.exports = (passport) => {
 
     // JWT STRATEGY
+    passport.use(new JWTStrategy({
+        'secretOrKey': secretKey,
+        'jwtFromRequest': ExtractJwt.fromAuthHeaderAsBearerToken
+    }, async (jwt_payload, done) => {
 
-    passport.use(new JWTStrategy({ jwtFromRequest: req => req.cookies.jwt, secretOrKey: secretKey },
+        console.log('payload ....')
 
-        (jwtPayload, done) => {
-
-            if (Date.now() > jwtPayload.expires) {
-                return done('jwt expired')
-            }
-
-            return done(null, jwtPayload)
+        try {
+            user = User.findOne({ id: jwt_payload.id })
+            return done(null, user);
+        } catch (error) {
+            console.log('JWT STRATEGRY !!!!')
+            console.log(error)
+            return done(err, false);
         }
-    ))
+    }));
 
     // GOOGLE STRATEGY
 

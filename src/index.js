@@ -22,6 +22,7 @@ require('./config/passport')(passport)
 
 
 app.use('/auth', require('./controllers/AuthController'))
+app.use('/account', require('./controllers/AccountController'))
 
 app.use('/', (req, res) => {
     res.status(httpStatus.OK).json({
